@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shenghua Wan</title>
+<meta name="description" content="Shenghua Wan, Ph.D. End-to-End Decision Algorithm Engineer at Momenta, Suzhou.">
+<style>
+  :root {
+    --c-text: #2c3e50;
+    --c-muted: #6a737d;
+    --c-heading: #1a2b4a;
+    --c-accent: #1e4a8c;
+    --c-accent-hover: #0d2c5c;
+    --c-border: #e6e8eb;
+    --c-bg: #fafbfc;
+    --c-card: #ffffff;
+    --c-tag-bg: #eef3fb;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--c-bg);
+    color: var(--c-text);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                 "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+                 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ===== Header ===== */
+  header.site-header {
+    border-bottom: 1px solid var(--c-border);
+    background: var(--c-card);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  header.site-header .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+  .brand .name {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--c-heading);
+    letter-spacing: 0.3px;
+  }
+  .brand .tagline {
+    display: block;
+    font-size: 12.5px;
+    color: var(--c-muted);
+  }
+  nav.topnav a {
+    margin-left: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--c-accent);
+    text-decoration: none;
+  }
+  nav.topnav a:hover { color: var(--c-accent-hover); text-decoration: underline; }
+
+  /* ===== Intro ===== */
+  .intro {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    margin: 44px 0 8px 0;
+  }
+  .intro .left { flex: 1; }
+  .intro h1 {
+    font-size: 25px;
+    font-weight: 700;
+    color: var(--c-heading);
+    line-height: 1.4;
+    margin: 0 0 14px 0;
+  }
+  .intro p { margin: 0 0 10px 0; color: #3c4858; text-align: justify; }
+  .intro .right img.face {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid var(--c-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+  .contact-line { font-size: 14px; }
+  .contact-line b { color: var(--c-heading); }
+
+  a { color: var(--c-accent); text-decoration: none; }
+  a:hover { color: var(--c-accent-hover); text-decoration: underline; }
+
+  /* ===== Sections ===== */
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--c-heading);
+    margin: 44px 0 16px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--c-border);
+    letter-spacing: 0.3px;
+  }
+  h3.sub {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--c-heading);
+    margin: 24px 0 10px 0;
+  }
+
+  /* ===== Publication cards ===== */
+  ul.collection {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul.collection li {
+    display: flex;
+    gap: 22px;
+    padding: 16px 0;
+    border-top: 1px solid var(--c-border);
+  }
+  ul.collection li:first-child { border-top: none; }
+  .thumb { flex: 0 0 240px; }
+  .thumb img {
+    width: 240px;
+    height: 135px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid var(--c-border);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    display: block;
+  }
+  .thumb img:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateY(-1px);
+  }
+  .text { flex: 1; }
+  .text h4 {
+    margin: 0 0 4px 0;
+    font-size: 15.5px;
+    font-weight: 600;
+    color: var(--c-heading);
+    line-height: 1.45;
+  }
+  .text p { margin: 0 0 3px 0; font-size: 14px; text-align: left; }
+  .authors { color: #3c4858; }
+  .authors b { color: var(--c-heading); }
+  .venue {
+    display: inline-block;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--c-accent);
+    background: var(--c-tag-bg);
+    border-radius: 4px;
+    padding: 1px 8px;
+    margin: 2px 0 6px 0;
+  }
+  .buttons a {
+    display: inline-block;
+    font-size: 12.5px;
+    font-weight: 500;
+    border: 1px solid var(--c-border);
+    border-radius: 4px;
+    padding: 1px 10px;
+    margin-right: 6px;
+    background: #fff;
+  }
+  .buttons a:hover {
+    border-color: var(--c-accent);
+    text-decoration: none;
+  }
+
+  /* ===== Lists ===== */
+  ul.plain { margin: 8px 0; padding-left: 22px; }
+  ul.plain li { margin-bottom: 4px; color: #3c4858; }
+  p.body-text { margin: 0 0 10px 0; color: #3c4858; text-align: justify; }
+
+  /* ===== Footer ===== */
+  footer {
+    margin-top: 60px;
+    padding: 20px 0 30px 0;
+    border-top: 1px solid var(--c-border);
+    text-align: center;
+    color: var(--c-muted);
+    font-size: 12.5px;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 768px) {
+    .intro { flex-direction: column-reverse; gap: 20px; align-items: flex-start; }
+    .intro .right img.face { width: 140px; height: 140px; }
+    ul.collection li { flex-direction: column; gap: 10px; }
+    .thumb { flex: none; }
+    .thumb img { width: 100%; max-width: 320px; height: auto; }
+    nav.topnav a { margin-left: 12px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrapper">
+    <div class="brand">
+      <span class="name">Shenghua Wan</span>
+      <span class="tagline">End-to-End Decision Algorithm Engineer @ Momenta</span>
+    </div>
+    <nav class="topnav">
+      <a href="#about">About</a>
+      <a href="#publications">Publications</a>
+      <a href="#preprints">Preprints</a>
+      <a href="#honors">Honors</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrapper">
+
+<!-- ===================== About ===================== -->
+<section id="about">
+  <div class="intro">
+    <div class="left">
+      <h1>Hi, I'm Shenghua Wan. I work on decision-making algorithms that learn to understand the world.</h1>
+      <p>
+        I am currently an <b>End-to-End Decision Algorithm Engineer</b> at
+        <a href="https://www.momenta.cn/" target="_blank">Momenta</a>, Suzhou, China,
+        working on end-to-end autonomous driving.
+      </p>
+      <p>
+        I received my Ph.D. degree from the School of Artificial Intelligence,
+        <a href="http://www.nju.edu.cn/" target="_blank">Nanjing University</a> in June 2026,
+        advised by Prof. <a href="http://www.lamda.nju.edu.cn/zhandc/" target="_blank">De-Chuan Zhan</a>
+        in the <a href="http://lamda.nju.edu.cn/" target="_blank">LAMDA Group</a> led by Prof.
+        <a href="http://cs.nju.edu.cn/zhouzh/" target="_blank">Zhi-Hua Zhou</a>.
+        Before that, I received my B.Sc. degree in GIS from Nanjing University in June 2021.
+      </p>
+      <p class="contact-line">
+        <b>Email</b>: <a href="mailto:wanshenghua0and1@gmail.com">wanshenghua0and1@gmail.com</a><br>
+        <b>Links</b>:
+        <a href="https://scholar.google.com/citations?user=ohq28Z0AAAAJ&amp;hl=en" target="_blank">Google Scholar</a> ·
+        <a href="https://github.com/yixiaoshenghua" target="_blank">GitHub</a>
+      </p>
+    </div>
+    <div class="right">
+      <img class="face" src="./file/wansh.jpg" alt="Shenghua Wan">
+    </div>
+  </div>
+
+  <h3 class="sub">Research Interests</h3>
+  <ul class="plain">
+    <li>End-to-end decision making for autonomous driving</li>
+    <li>Policy-induced world model learning</li>
+    <li>Learning world models under cross-modality observations</li>
+    <li>Learning control in noisy environments</li>
+  </ul>
+</section>
+
+<!-- ===================== Publications ===================== -->
+<section id="publications">
+  <h2>Publications</h2>
+
+  <h3 class="sub">Conference</h3>
+  <ul class="collection">
+
+    <li>
+      <div class="thumb"><img src="./file/images/CQRC.jpg" alt="Conquer"></div>
+      <div class="text">
+        <h4>Continual Quadruped Robots Coordination via Semantic Skill Discovery</h4>
+        <p class="authors">Daoqing Wang, Yuchen Xiao, Weixuan Huang, Zhilong Zhang, <b>Shenghua Wan</b>, Meng Li, Lei Yuan, Yang Yu</p>
+        <span class="venue">CoRL 2026, Austin, Texas</span>
+        <p class="buttons"><a>[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/IDK_MDP.png" alt="IDK-MDP"></div>
+      <div class="text">
+        <h4>Reachability Modeling in Offline Markov Decision Processes via Isolation Kernel and its Distributional Extensions</h4>
+        <p class="authors">Yuan-yih Shang, <b>Shenghua Wan</b>, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">CCDM 2026, Shanxi, China</span>
+        <p class="buttons"><a>[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/MuCoLA.png" alt="MuCoLA"></div>
+      <div class="text">
+        <h4>Multi-view Consistent Latent Action Learning for World Modeling and Control</h4>
+        <p class="authors"><b>Shenghua Wan</b>, Xiaohai Hu, Xunlan Zhou, Lei Yuan, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">ICML 2026, Seoul, South Korea</span>
+        <p class="buttons"><a>[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/hauwm.png" alt="HAUWM"></div>
+      <div class="text">
+        <h4>Learning to Be Uncertain: Pre-training World Models with Horizon-Calibrated Uncertainty</h4>
+        <p class="authors"><b>Shenghua Wan</b>, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">ICLR 2026, Rio de Janeiro, Brazil</span>
+        <p class="buttons"><a href="https://openreview.net/pdf?id=pZuZWRuPyi" target="_blank">[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/csdreamer.png" alt="CsDreamer"></div>
+      <div class="text">
+        <h4>Leveraging Conditional Dependence for Efficient World Model Denoising: A Generative Modeling Perspective</h4>
+        <p class="authors">Shaowei Zhang, Jiahan Cao, Dian Cheng, Xunlan Zhou, <b>Shenghua Wan</b>, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">NeurIPS 2025, San Diego, USA</span>
+        <p class="buttons"><a href="https://openreview.net/pdf/21f28e608ce45646a4704483a9fbcd2a64d849f2.pdf" target="_blank">[Paper]</a><a href="https://github.com/Zhang-Shaowei/CsDreamer" target="_blank">[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/mapo.png" alt="MAPO"></div>
+      <div class="text">
+        <h4>Pre-training World Models from Videos with Generated Actions by the Multi-Modal Large Models</h4>
+        <p class="authors"><b>Shenghua Wan</b>, Xingye Xu, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">CCML 2025, Shanxi, China</span>
+        <p class="buttons"><a href="https://www.jsjkx.com/CN/article/openArticlePDF.jsp?id=24006" target="_blank">[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/KD_BC.png" alt="CBC"></div>
+      <div class="text">
+        <h4>Twice Learning Revitalizes Behavior Cloning</h4>
+        <p class="authors">Wen-shu Fan, <b>Shenghua Wan</b>, Xin-chun Li, Hai-Hang Sun, Kaichen Huang, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">CCML 2025, Shanxi, China</span>
+        <p class="buttons"><a>[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/founder.png" alt="FOUNDER"></div>
+      <div class="text">
+        <h4>FOUNDER: Grounding Foundation Models in World Models for Open-Ended Embodied Decision Making</h4>
+        <p class="authors">Yucen Wang, Rui Yu, <b>Shenghua Wan</b>, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">ICML 2025, Montreal, Canada</span>
+        <p class="buttons"><a href="https://icml.cc/virtual/2025/poster/45117" target="_blank">[Paper]</a><a href="https://sites.google.com/view/founder-rl" target="_blank">[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/reward_models.png" alt="Reward Models Survey"></div>
+      <div class="text">
+        <h4>Reward Models in Deep Reinforcement Learning: A Survey</h4>
+        <p class="authors">Rui Yu, <b>Shenghua Wan</b>, Yucen Wang, Chen-Xiao Gao, Le Gan, Zongzhang Zhang, De-Chuan Zhan</p>
+        <span class="venue">IJCAI 2025 (Survey Track), Montreal, Canada</span>
+        <p class="buttons"><a href="https://www.ijcai.org/proceedings/2025/1199.pdf" target="_blank">[Paper]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/SeeX.png" alt="SeeX"></div>
+      <div class="text">
+        <h4>Leveraging Separated World Model for Exploration in Visually Distracted Environments</h4>
+        <p class="authors">Kaichen Huang*, <b>Shenghua Wan*</b>, Minghao Shao, Shuai Feng, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">NeurIPS 2024, Vancouver, Canada</span>
+        <p class="buttons"><a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/96189e90e599ccc43f00434ff3ed0312-Paper-Conference.pdf" target="_blank">[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/SeMOPO.png" alt="SeMOPO"></div>
+      <div class="text">
+        <h4>SeMOPO: Learning High-quality Model and Policy from Low-quality Offline Visual Datasets</h4>
+        <p class="authors"><b>Shenghua Wan</b>, Ziyuan Chen, Shuai Feng, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">ICML 2024, Vienna, Austria</span>
+        <p class="buttons"><a href="https://arxiv.org/pdf/2406.09486" target="_blank">[Paper]</a><a href="https://github.com/yixiaoshenghua/SeMOPO" target="_blank">[Code]</a><a href="https://sites.google.com/view/semopo" target="_blank">[Website]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/AD3.png" alt="AD3"></div>
+      <div class="text">
+        <h4>AD3: Implicit Action is the Key for World Models to Distinguish the Diverse Visual Distractors</h4>
+        <p class="authors">Yucen Wang*, <b>Shenghua Wan*</b>, Le Gan, Shuai Feng, De-Chuan Zhan</p>
+        <span class="venue">ICML 2024, Vienna, Austria</span>
+        <p class="buttons"><a href="https://arxiv.org/pdf/2403.09976.pdf" target="_blank">[Paper]</a><a>[Code]</a><a href="https://sites.google.com/view/ad3-iag" target="_blank">[Website]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/MOSER1.png" alt="MOSER"></div>
+      <div class="text">
+        <h4>MOSER: Learning Sensory Policy for Task-specific Viewpoint via View-conditional World Model</h4>
+        <p class="authors"><b>Shenghua Wan</b>, Haihang Sun, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">IJCAI 2024, Jeju, South Korea</span>
+        <p class="buttons"><a href="https://www.ijcai.org/proceedings/2024/0558.pdf" target="_blank">[Paper]</a><a href="https://github.com/yixiaoshenghua/MOSER/tree/main" target="_blank">[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/SeMAIL.png" alt="SeMAIL"></div>
+      <div class="text">
+        <h4>SeMAIL: Eliminating Distractors in Visual Imitation via Separated Models</h4>
+        <p class="authors"><b>Shenghua Wan</b>, Yucen Wang, Minghao Shao, Ruying Chen, De-Chuan Zhan</p>
+        <span class="venue">ICML 2023, Honolulu, Hawaii, USA</span>
+        <p class="buttons"><a href="https://arxiv.org/pdf/2306.10695.pdf" target="_blank">[Paper]</a><a href="https://github.com/yixiaoshenghua/SeMAIL" target="_blank">[Code]</a></p>
+      </div>
+    </li>
+
+  </ul>
+
+  <h3 class="sub">Journal</h3>
+  <ul class="collection">
+
+    <li>
+      <div class="thumb"><img src="./file/images/IDK_MDP.png" alt="IDK-MDP"></div>
+      <div class="text">
+        <h4>Reachability Modeling in Offline Markov Decision Processes via Isolation Kernel and its Distributional Extensions</h4>
+        <p class="authors">Yuan-yih Shang, <b>Shenghua Wan</b>, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">Computer Science, 2026</span>
+        <p class="buttons"><a>[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/mapo.png" alt="MAPO"></div>
+      <div class="text">
+        <h4>Pre-training World Models from Videos with Generated Actions by the Multi-Modal Large Models</h4>
+        <p class="authors"><b>Shenghua Wan</b>, Xingye Xu, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">Computer Science, 2026, 53(1): 39-50</span>
+        <p class="buttons"><a href="https://www.jsjkx.com/CN/article/openArticlePDF.jsp?id=24006" target="_blank">[Paper]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/JSTATS2022.png" alt="JSTARS"></div>
+      <div class="text">
+        <h4>A Novel Multi-Training Method for Time-Series Urban Green Cover Recognition From Multitemporal Remote Sensing Images</h4>
+        <p class="authors">Wen-ye Wang, <b>Shenghua Wan</b>, Peng-feng Xiao, Xue-liang Zhang</p>
+        <span class="venue">IEEE JSTARS, 2022, 15: 9531-9544</span>
+        <p class="buttons"><a href="https://ieeexplore.ieee.org/iel7/4609443/4609444/09939068.pdf" target="_blank">[Paper]</a><a href="https://github.com/yixiaoshenghua/Multi-Temporal-Training-Based-Remote-Sensing-Images-Information-Extraction" target="_blank">[Code]</a></p>
+      </div>
+    </li>
+
+  </ul>
+</section>
+
+<!-- ===================== Preprints ===================== -->
+<section id="preprints">
+  <h2>Preprints</h2>
+  <ul class="collection">
+
+    <li>
+      <div class="thumb"><img src="./file/images/ASTRO.png" alt="ASTRO"></div>
+      <div class="text">
+        <h4>Anisotropic Support-Transport Robust Offline Model-based Reinforcement Learning</h4>
+        <p class="authors"><b>Shenghua Wan</b>, Jing-Wen Yang, Lei Yuan, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">Preprint</span>
+        <p class="buttons"><a>[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/KAVA.png" alt="KAVA"></div>
+      <div class="text">
+        <h4>Latent World Models Need to Also See the Details: Keyframe-Aware Visual Alignment</h4>
+        <p class="authors"><b>Shenghua Wan</b>, Jing-Wen Yang, Lei Yuan, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">Preprint</span>
+        <p class="buttons"><a>[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/HoMA.png" alt="HoMA"></div>
+      <div class="text">
+        <h4>Homeostatic Drives Give World-Model Agents a Grounded Objective</h4>
+        <p class="authors">Qiang Wu, <b>Shenghua Wan</b>, Jing-Wen Yang, Lei Yuan, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">Preprint</span>
+        <p class="buttons"><a>[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/PackVLA.png" alt="PackVLA"></div>
+      <div class="text">
+        <h4>PackVLA: Scalable Consolidation of Task-Specialized Vision-Language-Action Models</h4>
+        <p class="authors">Chao Zou, Yu Huang, Hongyu Jiang, <b>Shenghua Wan</b>, Lei Yuan, De-Chuan Zhan</p>
+        <span class="venue">Preprint</span>
+        <p class="buttons"><a>[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/CGoRL.png" alt="CGoRL"></div>
+      <div class="text">
+        <h4>Exploring Multiple Design Choices of Generative Online Reinforcement Learning on Locomotion Control: An Empirical Study</h4>
+        <p class="authors">Yifei Song*, Qun Yao*, <b>Shenghua Wan</b>, Lei Yuan, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">Preprint</span>
+        <p class="buttons"><a>[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/IKSD.png" alt="IKSD"></div>
+      <div class="text">
+        <h4>Data Dependent Kernel-Aware Unsupervised Skill Discovery</h4>
+        <p class="authors">Yuan-yih Shang, <b>Shenghua Wan</b>, Xiaohai Hu, Hongguang Shi, Kai Ming Ting, Lei Yuan, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">Preprint</span>
+        <p class="buttons"><a>[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/BRICKS-WM.png" alt="BRICKS-WM"></div>
+      <div class="text">
+        <h4>BRICKS-WM: Building Reusability via Interface Composition Kinetics for Structured World Models</h4>
+        <p class="authors">Shaowei Zhang, Jiahan Cao, Xunlan Zhou, <b>Shenghua Wan</b>, De-Chuan Zhan</p>
+        <span class="venue">Preprint</span>
+        <p class="buttons"><a>[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/intrinsic.png" alt="Intrinsic Desire"></div>
+      <div class="text">
+        <h4>From Tools to Entities: Intrinsic Desire as the Foundation of General Agency</h4>
+        <p class="authors">Qiang Wu, <b>Shenghua Wan</b>, Xiaohai Hu, Lei Yuan, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">Preprint</span>
+        <p class="buttons"><a>[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/MARVL.png" alt="MARVL"></div>
+      <div class="text">
+        <h4>MARVL: Multi-Stage Guidance for Robotics Manipulation via Vision Language Models</h4>
+        <p class="authors">Xunlan Zhou, Xuanlin Chen, Shaowei Zhang, Xiangkun Li, <b>Shenghua Wan</b>, Xiaohai Hu, Lei Yuan, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">Preprint</span>
+        <p class="buttons"><a>[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/url_overview.png" alt="URL Survey"></div>
+      <div class="text">
+        <h4>Unsupervised Reinforcement Learning: A Survey and Open Problems</h4>
+        <p class="authors"><b>Shenghua Wan</b>, Yuanyi Shang, Shaowei Zhang, Xiaohai Hu, Xunlan Zhou, Lei Yuan, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">Preprint</span>
+        <p class="buttons"><a>[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/fine.png" alt="FINE"></div>
+      <div class="text">
+        <h4>FINE: Effective Model-based Imitation in Visually Noisy Environments via Uncertainty Reduction</h4>
+        <p class="authors"><b>Shenghua Wan</b>, Ziyuan Chen, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">Preprint</span>
+        <p class="buttons"><a>[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/DIDA.png" alt="DIDA"></div>
+      <div class="text">
+        <h4>DIDA: Denoised Imitation Learning based on Domain Adaptation</h4>
+        <p class="authors">Kaichen Huang*, Hai-Hang Sun*, <b>Shenghua Wan</b>, Minghao Shao, Shuai Feng, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">Preprint</span>
+        <p class="buttons"><a href="https://arxiv.org/pdf/2404.03382.pdf" target="_blank">[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/SENSOR.png" alt="SENSOR"></div>
+      <div class="text">
+        <h4>SENSOR: Imitate Third-Person Expert's Behaviors via Active Sensoring</h4>
+        <p class="authors">Kaichen Huang*, Minghao Shao*, <b>Shenghua Wan</b>, Hai-Hang Sun, Shuai Feng, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">Preprint</span>
+        <p class="buttons"><a href="https://arxiv.org/pdf/2404.03386.pdf" target="_blank">[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+    <li>
+      <div class="thumb"><img src="./file/images/CMSWM.png" alt="CROMOS"></div>
+      <div class="text">
+        <h4>Efficient Online Reinforcement Learning with Cross-Modality Offline Data</h4>
+        <p class="authors">Shaowei Zhang, Dian Cheng, <b>Shenghua Wan</b>, Xiaolong Yin, Lu Han, Shuai Feng, Le Gan, De-Chuan Zhan</p>
+        <span class="venue">Preprint</span>
+        <p class="buttons"><a>[Paper]</a><a>[Code]</a></p>
+      </div>
+    </li>
+
+  </ul>
+</section>
+
+<!-- ===================== Honors ===================== -->
+<section id="honors">
+  <h2>Selected Honors</h2>
+  <ul class="plain">
+    <li>Outstanding Graduate of Nanjing University, 2026.06</li>
+    <li>MStar Intern at <a href="https://www.momenta.cn/" target="_blank">Momenta</a>, 2025.06–2025.09</li>
+    <li>LAMDA Outstanding Contribution Award, 2024.12</li>
+    <li>National Scholarship for Doctoral Students, 2024.12</li>
+    <li>LAMDA Excellent Student Award, 2024.05</li>
+    <li>Ruli Scholarship, 2023.11</li>
+    <li>Winner of the Ping An Insurance Data Mining Competition, 2021.12</li>
+    <li>Presidential Special Scholarship for First-year Ph.D. Students, Nanjing University, 2021.09</li>
+    <li>Outstanding Graduate of Nanjing University, 2021.06</li>
+    <li>2nd Place in ZhongAn Cup Insurance Data Mining Competition, 2020.10</li>
+  </ul>
+
+  <h3 class="sub">Academic Services</h3>
+  <p class="body-text">Reviewer: NeurIPS (2023–2025), ICML (2024–2026), ICLR (2026), AAAI (2026), PR, TNNLS, TMLR, CJE</p>
+  </section>
+
+  <section id="fundings">
+    <h2>Fundings</h2>
+    <ul class="plain">
+      <li><b>Learning World Models under Cross-Modality Observations.</b> The Young Scientists Fund of the National Natural Science Foundation of China (PhD Candidate) (624B200197) 2025.01-2026.12</li>
+      <li><b>Policy Transfer via Cross-modality Imitation under the Sim2Real Gap.</b> Postgraduate Research & Practice Innovation Program of Jiangsu Province (KYCX24_0302) 2024.05-2025.05</li>
+      <li><b>Characteristics and mechanism of global flood teleconnection</b> Frontier Science Center for Critical Earth Material Cycling - "GeoX" Project (2024300270) 2024.01-2024.12</li>
+    </ul>
+  </section> 
+
+<!-- ===================== Contact ===================== -->
+<section id="contact">
+  <h2>Contact</h2>
+  <p class="body-text">
+    Email: <a href="mailto:wanshenghua0and1@gmail.com">wanshenghua0and1@gmail.com</a><br>
+    Momenta, Suzhou, Jiangsu, China
+  </p>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrapper">© 2026 Shenghua Wan · Last modified: 2026-09-06</div>
+</footer>
+
+</body>
+</html>
